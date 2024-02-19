@@ -5,8 +5,7 @@ phases:
     runtime-versions:
       python: 3.11
     commands:
-      - apt-get update
-      - apt-get install -y python3-pip
+      - yum install -y python3-pip
       - /usr/bin/python3 -m pip install --upgrade pip
       - /usr/bin/python3 -m pip install openai
 
@@ -17,6 +16,7 @@ phases:
 
 artifacts:
   files: '**/*'
+
 
 
 

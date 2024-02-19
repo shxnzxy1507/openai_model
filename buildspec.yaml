@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    OPENAI_API_KEY: "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"
+    OPENAI_API_KEY: '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'
 
 phases:
   install:

@@ -3,15 +3,17 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.11  # Adjust to your required Python version
+      python: 3.11
     commands:
-      - pip install openai
+      - /usr/bin/python3 -m pip install openai
 
   build:
     commands:
-      - python run_openai_script.py
+      - export OPENAI_API_KEY=$OPENAI_API_KEY
+      - /usr/bin/python3 run_openai_script.py
 
 artifacts:
   files: '**/*'
+
 
 

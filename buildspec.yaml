@@ -1,5 +1,9 @@
 version: 0.2
 
+env:
+  variables:
+    OPENAI_API_KEY: "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"
+
 phases:
   install:
     runtime-versions:
@@ -10,11 +14,11 @@ phases:
 
   build:
     commands:
-      - export OPENAI_API_KEY=$OPENAI_API_KEY
       - /usr/bin/python3 my_openai.py
 
 artifacts:
   files: '**/*'
+
 
 
 

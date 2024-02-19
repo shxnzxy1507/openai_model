@@ -1,5 +1,3 @@
-# my_openai.py
-
 from openai import OpenAI
 
 # Set your OpenAI API key here

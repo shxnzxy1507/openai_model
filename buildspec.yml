@@ -10,7 +10,7 @@ phases:
       
       # Retrieve the API key and organization ID from GitHub secrets
       - |
-        export OPENAI_API_KEY="${{ secrets.OPENAI_API_KEY }}"
+        export OPENAI_API_KEY=$(echo "${{ secrets.OPENAI_API_KEY }}")
 
   build:
     commands:

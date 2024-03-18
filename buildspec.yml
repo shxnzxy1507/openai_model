@@ -3,11 +3,17 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.9
+      python: 3.11
     commands:
-      # Install necessary dependencies
-      - yum install -y python3-pip
-      - /usr/bin/python3 -m pip install openai
+      # Create and activate virtual environment
+      - python3 -m venv env
+      - source env/bin/activate
+      
+      # Upgrade pip
+      - pip install --upgrade pip
+      
+      # Install dependencies
+      - pip install openai
       
       # Retrieve the API key from AWS Secrets Manager
       - |
@@ -22,11 +28,12 @@ phases:
 
   build:
     commands:
-      # Run the Python script
-      - /usr/bin/python3 my_openai.py
+      # Run your Python script
+      - python my_openai.py
 
 artifacts:
   files: '**/*'
+
 
 
 

@@ -3,12 +3,12 @@ from openai import OpenAI
 
 # Retrieve the API key from environment variables
 api_key = os.environ.get("OPENAI_API_KEY")
+print("API Key:", api_key)  # Print the API key for debugging
 
-# Initialize the OpenAI client with the API key
+# Create an OpenAI client instance
 client = OpenAI(api_key=api_key)
 
-# Now you can use the OpenAI client for making requests
-# For example:
+# Create a completion using the OpenAI client
 completion = client.chat.completions.create(
     model="gpt-3.5-turbo",
     messages=[
@@ -17,7 +17,8 @@ completion = client.chat.completions.create(
     ]
 )
 
-print(completion.choices[0].message)
+print(completion.choices[0].message)  # Print the completion for debugging
+
 
 
 

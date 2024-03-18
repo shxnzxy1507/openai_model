@@ -5,19 +5,35 @@ phases:
     runtime-versions:
       python: 3.11
     commands:
-      - yum install -y python3-pip
-      - /usr/bin/python3 -m pip install openai
+      # Create and activate virtual environment
+      - python3 -m venv env
+      - source env/bin/activate
       
-      # Retrieve the API key from GitHub secrets
+      # Upgrade pip
+      - pip install --upgrade pip
+      
+      # Install dependencies
+      - pip install openai
+      
+      # Retrieve the API key from Secrets Manager
       - |
-        export OPENAI_API_KEY=$(echo "${{ secrets.OPENAI_API_KEY }}")
+        api_key=$(aws secretsmanager get-secret-value --secret-id OPENAI_API_KEY --region eu-north-1 --query SecretString --output text)
+        if [ -z "$api_key" ]; then
+          echo "Failed to retrieve API key from Secrets Manager"
+          exit 1
+        fi
+        
+        # Set the API key as an environment variable
+        export OPENAI_API_KEY="$api_key"
 
   build:
     commands:
-      - /usr/bin/python3 my_openai.py
+      # Run your Python script
+      - python my_openai.py
 
 artifacts:
   files: '**/*'
+
 
 
 

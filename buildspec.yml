@@ -5,6 +5,8 @@ phases:
     runtime-versions:
       python: 3.11
     commands:
+      - yum install -y python3-pip
+      - /usr/bin/python3 -m pip install openai
       - aws secretsmanager get-secret-value --secret-id OPENAI_API_KEY --region eu-north-1 --output text --query SecretString > api_key.txt
       - export OPENAI_API_KEY=$(cat api_key.txt)
 

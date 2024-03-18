@@ -1,7 +1,7 @@
+import os
 from openai import OpenAI
 
-# Set your OpenAI API key here
-api_key = "api_key"
+api_key = os.environ.get("OPENAI_API_KEY")
 
 client = OpenAI(api_key=api_key)
 completion = client.chat.completions.create(

@@ -3,23 +3,17 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.11
+      python: 3.9
     commands:
-      # Create and activate virtual environment
-      - python3 -m venv env
-      - source env/bin/activate
+      # Install necessary dependencies
+      - yum install -y python3-pip
+      - /usr/bin/python3 -m pip install openai
       
-      # Upgrade pip
-      - pip install --upgrade pip
-      
-      # Install dependencies
-      - pip install openai
-      
-      # Retrieve the API key from AWS Systems Manager Parameter Store
+      # Retrieve the API key from AWS Secrets Manager
       - |
-        api_key=$(aws ssm get-parameter --name /openai/api_key --with-decryption --query Parameter.Value --output text --region eu-north-1)
+        api_key=$(aws secretsmanager get-secret-value --secret-id OPENAI_API_KEY --region eu-north-1 --query SecretString --output text)
         if [ -z "$api_key" ]; then
-          echo "Failed to retrieve API key from Systems Manager Parameter Store"
+          echo "Failed to retrieve API key from Secrets Manager"
           exit 1
         fi
         
@@ -28,11 +22,12 @@ phases:
 
   build:
     commands:
-      # Run your Python script
-      - python my_openai.py
+      # Run the Python script
+      - /usr/bin/python3 my_openai.py
 
 artifacts:
   files: '**/*'
+
 
 
 

@@ -1,17 +1,12 @@
-import os
 from openai import OpenAI
 
-# Retrieve the API key from environment variables
-api_key = os.environ.get("OPENAI_API_KEY")
+# Initialize the OpenAI client with organization ID
+client = OpenAI(
+    organization='org-2LzSNGf8ab5RCjWbDm0hy5fg'
+)
 
-# Verify that the API key is not None or empty
-if not api_key:
-    raise ValueError("API key not found in environment variables")
-
-# Initialize the OpenAI client with the API key
-client = OpenAI(api_key=api_key)
-
-# Create a chat completion
+# Now you can use the OpenAI client for making requests
+# For example:
 completion = client.chat.completions.create(
     model="gpt-3.5-turbo",
     messages=[
@@ -20,7 +15,7 @@ completion = client.chat.completions.create(
     ]
 )
 
-# Print the chat completion message
 print(completion.choices[0].message)
+
 
 

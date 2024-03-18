@@ -1,9 +1,11 @@
+import os
 from openai import OpenAI
 
-# Initialize the OpenAI client with organization ID
-client = OpenAI(
-    organization='org-2LzSNGf8ab5RCjWbDm0hy5fg'
-)
+# Retrieve the API key from environment variables
+api_key = os.environ.get("OPENAI_API_KEY")
+
+# Initialize the OpenAI client with the API key
+client = OpenAI(api_key=api_key)
 
 # Now you can use the OpenAI client for making requests
 # For example:

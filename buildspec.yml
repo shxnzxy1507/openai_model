@@ -7,8 +7,17 @@ phases:
     commands:
       - yum install -y python3-pip
       - /usr/bin/python3 -m pip install openai
-      - aws secretsmanager get-secret-value --secret-id OPENAI_API_KEY --region eu-north-1 --output text --query SecretString > api_key.txt
-      - export OPENAI_API_KEY=$(cat api_key.txt)
+      
+      # Retrieve the API key from AWS Secrets Manager
+      - |
+        api_key=$(aws secretsmanager get-secret-value --secret-id OPENAI_API_KEY --region eu-north-1 --query SecretString --output text)
+        if [ -z "$api_key" ]; then
+          echo "Failed to retrieve API key from Secrets Manager"
+          exit 1
+        fi
+        
+        # Set the API key as an environment variable
+        export OPENAI_API_KEY="$api_key"
 
   build:
     commands:
@@ -16,6 +25,7 @@ phases:
 
 artifacts:
   files: '**/*'
+
 
 
 

@@ -17,7 +17,7 @@ phases:
       
       # Retrieve the API key from AWS Systems Manager Parameter Store
       - |
-        api_key=$(aws ssm get-parameter --name /openai/api_key --with-decryption --query Parameter.Value --output text --region YOUR_REGION)
+        api_key=$(aws ssm get-parameter --name /openai/api_key --with-decryption --query Parameter.Value --output text --region eu-north-1)
         if [ -z "$api_key" ]; then
           echo "Failed to retrieve API key from Systems Manager Parameter Store"
           exit 1

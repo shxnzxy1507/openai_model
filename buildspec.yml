@@ -5,19 +5,30 @@ phases:
     runtime-versions:
       python: 3.11
     commands:
-      - yum install -y python3-pip
-      - /usr/bin/python3 -m pip install openai
-      
-      # Retrieve the API key and organization ID from GitHub secrets
+      # Install system dependencies
+      - yum install -y python3-venv
+
+      # Create a virtual environment
+      - python3 -m venv env
+
+      # Activate the virtual environment
+      - source env/bin/activate
+
+      # Upgrade the openai package
+      - pip install --upgrade openai
+
+      # Retrieve the API key from GitHub secrets
       - |
         export OPENAI_API_KEY=$(echo "${{ secrets.OPENAI_API_KEY }}")
 
   build:
     commands:
-      - /usr/bin/python3 my_openai.py
+      # Make a request using the OpenAI Python client
+      - python my_openai.py
 
 artifacts:
   files: '**/*'
+
 
 
 

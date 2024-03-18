@@ -31,11 +31,9 @@ phases:
       # Run your Python script
       - python my_openai.py
 
-  deploy:
-    commands:
-      # Example deployment command (replace with your actual deployment commands)
-      - echo "Deploying your application..."
-      - # Add your deployment commands here
+artifacts:
+  files: '**/*'
+
 
 
 
